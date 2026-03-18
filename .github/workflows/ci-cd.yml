@@ -46,7 +46,7 @@ jobs:
           path: coverage/
 
   # ============================================
-  # Stage 2: Security Scanning
+  # Stage 2: Security Scanning (SAST + Deps)
   # ============================================
   security:
     name: Security Scan
