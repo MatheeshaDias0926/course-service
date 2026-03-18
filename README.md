@@ -39,21 +39,36 @@ docker-compose up --build
 
 ## API Endpoints
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/courses` | No | List courses (with filters) |
-| GET | `/courses/:id` | No | Get course by ID |
-| POST | `/courses` | JWT | Create a course |
-| PUT | `/courses/:id` | JWT | Update a course |
-| DELETE | `/courses/:id` | JWT | Soft-delete a course |
-| POST | `/courses/enroll` | JWT | Enroll in a course |
-| GET | `/courses/my` | JWT | Get my enrollments |
-| DELETE | `/courses/enroll/:courseId` | JWT | Drop a course |
-| GET | `/health` | No | Health check |
+| Method | Endpoint                    | Auth | Description                 |
+| ------ | --------------------------- | ---- | --------------------------- |
+| GET    | `/courses`                  | No   | List courses (with filters) |
+| GET    | `/courses/:id`              | No   | Get course by ID            |
+| POST   | `/courses`                  | JWT  | Create a course             |
+| PUT    | `/courses/:id`              | JWT  | Update a course             |
+| DELETE | `/courses/:id`              | JWT  | Soft-delete a course        |
+| POST   | `/courses/enroll`           | JWT  | Enroll in a course          |
+| GET    | `/courses/my`               | JWT  | Get my enrollments          |
+| DELETE | `/courses/enroll/:courseId` | JWT  | Drop a course               |
+| GET    | `/health`                   | No   | Health check                |
+
+## Production Deployment
+
+- **Deployed URL:** https://course-service-5bk1.onrender.com
+- **API Gateway URL:** [YOUR_API_GATEWAY_URL]
+
+> For all production API calls, use the API Gateway URL above. Direct service URLs are for internal use and debugging only.
+
+## CI/CD & Security
+
+- Automated build, test, and deploy via GitHub Actions
+- Static analysis: SonarCloud
+- Dependency scanning: Snyk
+
+---
 
 ### API Documentation
 
-Once running: `http://localhost:3002/api-docs`
+Once running: `http://localhost:3002/api-docs` (local) or `https://course-service-5bk1.onrender.com/api-docs` (production)
 
 ## Inter-Service Communication
 
