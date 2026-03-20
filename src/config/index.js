@@ -10,6 +10,9 @@ module.exports = {
     authService: {
         url: process.env.AUTH_SERVICE_URL || 'http://localhost:3001',
     },
+    notificationService: {
+        url: process.env.NOTIFICATION_SERVICE_URL || 'http://localhost:3004',
+    },
     jwt: {
         secret: process.env.JWT_SECRET || 'default-secret-change-me',
     },

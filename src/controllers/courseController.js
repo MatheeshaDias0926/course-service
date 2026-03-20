@@ -1,5 +1,7 @@
+const axios = require('axios');
 const Course = require('../models/Course');
 const Enrollment = require('../models/Enrollment');
+const config = require('../config');
 
 /**
  * GET /courses
@@ -202,6 +204,39 @@ const enrollInCourse = async (req, res, next) => {
 
         // Populate course details in response
         await enrollment.populate('courseId');
+
+        // Send Notification (Inter-Service Communication)
+        try {
+            const token = req.headers.authorization; // Pass the bearer token along
+            await axios.post(
+                `${config.notificationService.url}/notifications/send`,
+                {
+                    recipientId: studentId,
+                    recipientEmail: req.user.email || 'student@example.com', // fallback if email isn't in token
+                    type: 'enrollment',
+                    title: 'Enrollment Confirmed',
+                    message: `You have successfully enrolled in ${course.courseCode} - ${course.courseName}`,
+                    source: {
+                        service: 'course-service',
+                        eventId: enrollment._id.toString()
+                    },
+                    metadata: {
+                        courseId: course._id.toString(),
+                        courseCode: course.courseCode,
+                        courseName: course.courseName
+                    },
+                    priority: 'medium'
+                },
+                {
+                    headers: {
+                        Authorization: token
+                    },
+                    timeout: 5000
+                }
+            );
+        } catch (notifErr) {
+            console.warn('Failed to send enrollment notification:', notifErr.message); // eslint-disable-line no-console
+        }
 
         res.status(201).json({
             success: true,
