@@ -14,8 +14,8 @@ const options = {
     },
     servers: [
       {
-        url: "https://course-service-5bk1.onrender.com",
-        description: "Production (Render) server",
+        url: "https://course-service.victorioustree-e4ff2207.southeastasia.azurecontainerapps.io",
+        description: "Azure Container Apps",
       },
     ],
     components: {
